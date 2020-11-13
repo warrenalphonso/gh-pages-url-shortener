@@ -9,32 +9,32 @@ function redirect() {
 }
 
 function _redirect() {
-  _redirect = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+  _redirect = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
     var _location, issueNumber, _homepage, response, payload, message, title;
 
-    return regeneratorRuntime.wrap(function _callee2$(_context2) {
+    return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
-        switch (_context2.prev = _context2.next) {
+        switch (_context.prev = _context.next) {
           case 0:
-            _context2.prev = 0;
+            _context.prev = 0;
             _location = window.location;
             issueNumber = _location.pathname.split("/")[PATH_SEGMENTS_TO_SKIP + 1];
             _homepage = _location.protocol + "//" + _location.hostname + (_location.port ? ":" + _location.port : "") + "/" + _location.pathname.split("/")[PATH_SEGMENTS_TO_SKIP];
-            _context2.next = 6;
+            _context.next = 6;
             return fetch(GITHUB_ISSUES_LINK + issueNumber);
 
           case 6:
-            response = _context2.sent;
+            response = _context.sent;
 
             if (response.status !== 200) {
               _location.replace(_homepage);
             }
 
-            _context2.next = 10;
+            _context.next = 10;
             return response.json();
 
           case 10:
-            payload = _context2.sent;
+            payload = _context.sent;
             message = payload.message, title = payload.title;
 
             if (message === "Not Found") {
@@ -47,35 +47,22 @@ function _redirect() {
               _location.replace(title);
             }
 
-            _context2.next = 18;
+            _context.next = 18;
             break;
 
           case 15:
-            _context2.prev = 15;
-            _context2.t0 = _context2["catch"](0);
+            _context.prev = 15;
+            _context.t0 = _context["catch"](0);
             location.replace(homepage);
 
           case 18:
           case "end":
-            return _context2.stop();
+            return _context.stop();
         }
       }
-    }, _callee2, null, [[0, 15]]);
+    }, _callee, null, [[0, 15]]);
   }));
   return _redirect.apply(this, arguments);
 }
 
-_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-  return regeneratorRuntime.wrap(function _callee$(_context) {
-    while (1) {
-      switch (_context.prev = _context.next) {
-        case 0:
-          redirect();
-
-        case 1:
-        case "end":
-          return _context.stop();
-      }
-    }
-  }, _callee);
-}))();
+redirect();
