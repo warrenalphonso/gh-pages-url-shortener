@@ -18,7 +18,7 @@ function _redirect() {
           case 0:
             _context2.prev = 0;
             _location = window.location;
-            issueNumber = _location.pathname.split("/").slice(0, 2).join("");
+            issueNumber = _location.pathname.split("/").slice(0, 2 + PATH_SEGMENTS_TO_SKIP).join("");
             _context2.next = 5;
             return fetch(GITHUB_ISSUES_LINK + issueNumber);
 
