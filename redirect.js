@@ -10,15 +10,16 @@ function redirect() {
 
 function _redirect() {
   _redirect = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
-    var location, issueNumber, homepage, response, message, title;
+    var _location, issueNumber, _homepage, response, message, title;
+
     return regeneratorRuntime.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
             _context2.prev = 0;
-            location = window.location;
-            issueNumber = location.pathname.split("/").slice(0, 2 + PATH_SEGMENTS_TO_SKIP).join("");
-            homepage = location.protocol + "//" + location.hostname + (location.port ? ":" + location.port : "");
+            _location = window.location;
+            issueNumber = _location.pathname.split("/")[PATH_SEGMENTS_TO_SKIP + 1];
+            _homepage = _location.protocol + "//" + _location.hostname + (_location.port ? ":" + _location.port : "") + "/" + _location.pathname.split("/")[PATH_SEGMENTS_TO_SKIP];
             _context2.next = 6;
             return fetch(GITHUB_ISSUES_LINK + issueNumber);
 
@@ -30,22 +31,25 @@ function _redirect() {
             response = _context2.sent;
             message = response.message, title = response.title;
 
-            if (message === "Not Found") {// issueNumber does not exist in gh issues
-              // location.replace(homepage);
+            if (message === "Not Found") {
+              // issueNumber does not exist in gh issues
+              _location.replace(_homepage);
             } else if (title) {
               // Check if the title of issue is a legitimate URL
               new URL(title);
-              location.replace(title);
+
+              _location.replace(title);
             }
 
-            _context2.next = 15;
+            _context2.next = 16;
             break;
 
           case 13:
             _context2.prev = 13;
             _context2.t0 = _context2["catch"](0);
+            location.replace(homepage);
 
-          case 15:
+          case 16:
           case "end":
             return _context2.stop();
         }
