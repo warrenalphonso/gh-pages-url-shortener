@@ -10,16 +10,15 @@ function redirect() {
 
 function _redirect() {
   _redirect = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
-    var _location, issueNumber, response, message, title;
-
+    var location, issueNumber, homepage, response, message, title;
     return regeneratorRuntime.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
             _context2.prev = 0;
-            _location = window.location;
-            console.log(_location.pathname.split("/"));
-            issueNumber = _location.pathname.split("/").slice(0, 2 + PATH_SEGMENTS_TO_SKIP).join("");
+            location = window.location;
+            issueNumber = location.pathname.split("/").slice(0, 2 + PATH_SEGMENTS_TO_SKIP).join("");
+            homepage = location.protocol + "//" + location.hostname + (location.port ? ":" + location.port : "");
             _context2.next = 6;
             return fetch(GITHUB_ISSUES_LINK + issueNumber);
 
@@ -31,25 +30,22 @@ function _redirect() {
             response = _context2.sent;
             message = response.message, title = response.title;
 
-            if (message === "Not Found") {
-              // issueNumber does not exist in gh issues
-              _location.replace("/");
+            if (message === "Not Found") {// issueNumber does not exist in gh issues
+              // location.replace(homepage);
             } else if (title) {
               // Check if the title of issue is a legitimate URL
               new URL(title);
-
-              _location.replace(title);
+              location.replace(title);
             }
 
-            _context2.next = 16;
+            _context2.next = 15;
             break;
 
           case 13:
             _context2.prev = 13;
             _context2.t0 = _context2["catch"](0);
-            location.replace("/");
 
-          case 16:
+          case 15:
           case "end":
             return _context2.stop();
         }
