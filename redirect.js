@@ -10,7 +10,7 @@ function redirect() {
 
 function _redirect() {
   _redirect = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
-    var _location, issueNumber, _homepage, response, message, title;
+    var _location, issueNumber, _homepage, response, payload, message, title;
 
     return regeneratorRuntime.wrap(function _callee2$(_context2) {
       while (1) {
@@ -18,19 +18,24 @@ function _redirect() {
           case 0:
             _context2.prev = 0;
             _location = window.location;
-            console.log(_location.pathname.split("/"));
             issueNumber = _location.pathname.split("/")[PATH_SEGMENTS_TO_SKIP + 1];
             _homepage = _location.protocol + "//" + _location.hostname + (_location.port ? ":" + _location.port : "") + "/" + _location.pathname.split("/")[PATH_SEGMENTS_TO_SKIP];
-            _context2.next = 7;
+            _context2.next = 6;
             return fetch(GITHUB_ISSUES_LINK + issueNumber);
 
-          case 7:
-            _context2.next = 9;
-            return _context2.sent.json();
-
-          case 9:
+          case 6:
             response = _context2.sent;
-            message = response.message, title = response.title;
+
+            if (response.status !== 200) {
+              _location.replace(_homepage);
+            }
+
+            _context2.next = 10;
+            return response.json();
+
+          case 10:
+            payload = _context2.sent;
+            message = payload.message, title = payload.title;
 
             if (message === "Not Found") {
               // issueNumber does not exist in gh issues
@@ -42,20 +47,20 @@ function _redirect() {
               _location.replace(title);
             }
 
-            _context2.next = 17;
+            _context2.next = 18;
             break;
 
-          case 14:
-            _context2.prev = 14;
+          case 15:
+            _context2.prev = 15;
             _context2.t0 = _context2["catch"](0);
             location.replace(homepage);
 
-          case 17:
+          case 18:
           case "end":
             return _context2.stop();
         }
       }
-    }, _callee2, null, [[0, 14]]);
+    }, _callee2, null, [[0, 15]]);
   }));
   return _redirect.apply(this, arguments);
 }
