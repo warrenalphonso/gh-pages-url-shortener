@@ -18,16 +18,17 @@ function _redirect() {
           case 0:
             _context2.prev = 0;
             _location = window.location;
+            console.log(_location.pathname.split("/"));
             issueNumber = _location.pathname.split("/")[PATH_SEGMENTS_TO_SKIP + 1];
             _homepage = _location.protocol + "//" + _location.hostname + (_location.port ? ":" + _location.port : "") + "/" + _location.pathname.split("/")[PATH_SEGMENTS_TO_SKIP];
-            _context2.next = 6;
+            _context2.next = 7;
             return fetch(GITHUB_ISSUES_LINK + issueNumber);
 
-          case 6:
-            _context2.next = 8;
+          case 7:
+            _context2.next = 9;
             return _context2.sent.json();
 
-          case 8:
+          case 9:
             response = _context2.sent;
             message = response.message, title = response.title;
 
@@ -41,20 +42,20 @@ function _redirect() {
               _location.replace(title);
             }
 
-            _context2.next = 16;
+            _context2.next = 17;
             break;
 
-          case 13:
-            _context2.prev = 13;
+          case 14:
+            _context2.prev = 14;
             _context2.t0 = _context2["catch"](0);
             location.replace(homepage);
 
-          case 16:
+          case 17:
           case "end":
             return _context2.stop();
         }
       }
-    }, _callee2, null, [[0, 13]]);
+    }, _callee2, null, [[0, 14]]);
   }));
   return _redirect.apply(this, arguments);
 }
