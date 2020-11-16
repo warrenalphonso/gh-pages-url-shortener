@@ -10,15 +10,16 @@ function redirect() {
 
 function _redirect() {
   _redirect = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-    var location, issueNumber, homepage, response, payload, message, title, url;
+    var _location, issueNumber, _homepage, response, payload, message, title;
+
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            location = window.location;
-            issueNumber = location.pathname.split("/")[PATH_SEGMENTS_TO_SKIP + 1];
-            homepage = location.protocol + "//" + location.hostname + (location.port ? ":" + location.port : "") + "/" + location.pathname.split("/")[PATH_SEGMENTS_TO_SKIP];
-            _context.prev = 3;
+            _context.prev = 0;
+            _location = window.location;
+            issueNumber = _location.pathname.split("/")[PATH_SEGMENTS_TO_SKIP + 1];
+            _homepage = _location.protocol + "//" + _location.hostname + (_location.port ? ":" + _location.port : "") + "/" + _location.pathname.split("/")[PATH_SEGMENTS_TO_SKIP];
             _context.next = 6;
             return fetch(GITHUB_ISSUES_LINK + issueNumber);
 
@@ -26,7 +27,7 @@ function _redirect() {
             response = _context.sent;
 
             if (response.status !== 200) {
-              location.replace(homepage);
+              _location.replace(_homepage);
             }
 
             _context.next = 10;
@@ -35,37 +36,31 @@ function _redirect() {
           case 10:
             payload = _context.sent;
             message = payload.message, title = payload.title;
-            title = JSON.stringify(title);
 
             if (message === "Not Found") {
               // issueNumber does not exist in gh issues
-              location.replace(homepage);
+              _location.replace(_homepage);
             } else if (title) {
               // Check if the title of issue is a legitimate URL
-              url = new URL(title);
+              new URL(title);
 
-              if (url.host === HOST) {
-                // Prevent recursive redirects
-                location.replace(homepage);
-              }
-
-              location.replace(title);
+              _location.replace(title);
             }
 
-            _context.next = 19;
+            _context.next = 18;
             break;
 
-          case 16:
-            _context.prev = 16;
-            _context.t0 = _context["catch"](3);
+          case 15:
+            _context.prev = 15;
+            _context.t0 = _context["catch"](0);
             location.replace(homepage);
 
-          case 19:
+          case 18:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee, null, [[3, 16]]);
+    }, _callee, null, [[0, 15]]);
   }));
   return _redirect.apply(this, arguments);
 }
