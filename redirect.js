@@ -4,6 +4,11 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+function isUrl(url) {
+  // Regex from https://stackoverflow.com/a/3809435
+  return /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,4}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/.test(url);
+}
+
 (function () {
   var _redirect = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
     var location, issueNumber, homepage, response, payload, message, title, url;
@@ -40,8 +45,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             if (message === "Not Found") {
               // issueNumber does not exist in gh issues
               location.replace(homepage);
-            } else if (title) {
-              // Check if the title of issue is a legitimate URL
+            } else if (!title || !isUrl(title)) {
+              location.replace(homepage);
+            } else {
               url = new URL(title);
 
               if (url.protocol !== "https:" && url.protocol !== "http:" || url.host === HOST) {
@@ -50,8 +56,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               } else {
                 location.replace(title);
               }
-            } else {
-              location.replace(homepage);
             }
 
             _context.next = 20;
