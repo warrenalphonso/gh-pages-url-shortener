@@ -48,7 +48,7 @@ function _redirect() {
               // Check if the title of issue is a legitimate URL
               url = new URL(title);
 
-              if (url.protocol !== "https://" || url.protocol !== "http://" || url.host === HOST) {
+              if (url.protocol !== "https:" || url.protocol !== "http:" || url.host === HOST) {
                 // Prevent recursive redirects and XSS
                 location.replace(homepage);
               } else {
