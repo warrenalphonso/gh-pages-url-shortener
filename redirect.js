@@ -49,6 +49,8 @@ function _redirect() {
               } else {
                 location.replace(title);
               }
+            } else {
+              location.replace(homepage);
             }
 
             _context.next = 18;
