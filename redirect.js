@@ -4,12 +4,8 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-function redirect() {
-  return _redirect.apply(this, arguments);
-}
-
-function _redirect() {
-  _redirect = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+(function () {
+  var _redirect = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
     var location, issueNumber, homepage, response, payload, message, title, url;
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
@@ -73,7 +69,10 @@ function _redirect() {
       }
     }, _callee, null, [[3, 17]]);
   }));
-  return _redirect.apply(this, arguments);
-}
 
-redirect();
+  function redirect() {
+    return _redirect.apply(this, arguments);
+  }
+
+  return redirect;
+})()();
