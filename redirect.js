@@ -25,14 +25,19 @@ function _redirect() {
           case 6:
             response = _context.sent;
 
-            if (response.status !== 200) {
-              location.replace(homepage);
+            if (!(response.status !== 200)) {
+              _context.next = 10;
+              break;
             }
 
-            _context.next = 10;
-            return response.json();
+            location.replace(homepage);
+            return _context.abrupt("return");
 
           case 10:
+            _context.next = 12;
+            return response.json();
+
+          case 12:
             payload = _context.sent;
             message = payload.message, title = payload.title;
 
@@ -53,20 +58,20 @@ function _redirect() {
               location.replace(homepage);
             }
 
-            _context.next = 18;
+            _context.next = 20;
             break;
 
-          case 15:
-            _context.prev = 15;
+          case 17:
+            _context.prev = 17;
             _context.t0 = _context["catch"](3);
             location.replace(homepage);
 
-          case 18:
+          case 20:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee, null, [[3, 15]]);
+    }, _callee, null, [[3, 17]]);
   }));
   return _redirect.apply(this, arguments);
 }
